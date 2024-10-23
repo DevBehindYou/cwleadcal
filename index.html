@@ -59,8 +59,8 @@
     <!-- CR Calculator -->
     <div id="cr-calculator">
         <img src="img.png" alt="content-whale" style="width:70px; height:70px; float: right; margin-right: 5px;">
-        <h3 style="text-align: left; margin-left: 25px; font-family: 'Roboto', sans-serif; font-size: 25px; color: #47066a; margin-top: 8px; letter-spacing: 1px;">
-            Calculate Lead Performance <p style="text-align: left; font-size: 15px; margin-left: 175px; margin-top: 5px;">by Industry Standards</p>
+        <h3 style="text-align: center; margin-left: 25px; font-family: 'Roboto', sans-serif; font-size: 25px; color: #47066a; margin-top: 8px; letter-spacing: 1px;">
+            Wait! Do you really need SEO? <p style="text-align: left; font-size: 20px; margin-left: 175px; margin-top: 5px;">Let’s check -></p>
         </h3>
 
         <div class="container">
@@ -81,8 +81,8 @@
         </div>
 
         <div style="text-align: center;">
-            <button onclick="calculateCR()" style="width: 65%; padding: 10px; background: linear-gradient(90deg, #6f2597, #ffc14e); color: white; border: none; border-radius: 11px;">
-                Calculate Improvement
+            <button onclick="calculateCR()" style="width: 65%; padding: 10px; background: linear-gradient(90deg, #6f2597, #a401a4); color: white; border: none; border-radius: 11px;">
+                Calculate Lead Performance/Industry Std.
             </button>
         </div>
         
@@ -130,7 +130,7 @@ function calculateCR() {
         var potentialIncrease = currentConversions * leadboost;
 
         document.getElementById('result').innerHTML = msg + "<br><a href='https://content-whale.com/' target='_blank'><strong>" + cta + "</strong></a>";
-
+        /*
         // Show the GIF overlay if it hasn't been shown before
         if (!gifShown) {
             document.getElementById('gif-overlay').style.display = 'flex'; // Show the GIF
@@ -141,7 +141,7 @@ function calculateCR() {
             }, 2500);
 
             gifShown = true; // Set the flag to true, so the GIF won't show again
-        }
+        } */
 
         // Update the chart data
         setTimeout(function() {
