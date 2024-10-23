@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -24,9 +24,8 @@
             margin-left: 20px;
         }
 
-        /* Style for the GIF overlay within the CR Calculator section */
         #gif-overlay {
-            display: none; /* Make sure it's hidden initially */
+            display: none;
             position: absolute;
             top: 0;
             left: 0;
@@ -43,154 +42,324 @@
             height: 100%;
         }
 
-        /* Position relative to the CR calculator to contain the overlay */
         #cr-calculator {
             position: relative;
-            max-width: 560px;
+            max-width: 520px;
             margin: auto;
             padding: 12px;
             border: 1px solid hsl(0, 0%, 80%);
             border-radius: 10px;
             background-color: #f9f5fb;
         }
+
+        .loader-overlay {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(111, 37, 151, 0.1);
+            z-index: 10;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+        }
+
+        .loader {
+            border: 10px solid #f3f3f3;
+            border-top: 10px solid #6f2597;
+            border-radius: 50%;
+            width: 65px;
+            height: 65px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Separate chart containers for bar and doughnut charts */
+        .chart-section {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .chart-section .chart-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chart-section canvas {
+            display: block;
+            margin: 0 auto;
+            width: 210px;  /* Increased the size of the bar chart by 5% */
+            height: 210px; /* Ensured both charts have the same height */
+        }
+
+        .divider {
+            width: 1px;
+            margin: 0 25px;
+        }
+
+        /* Cross button to show the entry section again */
+        .cross-button {
+            position: absolute;
+            top: 100px;
+            right: 20px;
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #a0a2a9;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 7px;
+            display: none; /* Initially hidden */
+        }
     </style>
 </head>
 <body>
-    <!-- CR Calculator -->
     <div id="cr-calculator">
         <img src="img.png" alt="content-whale" style="width:70px; height:70px; float: right; margin-right: 5px;">
         <h3 style="text-align: center; margin-left: 25px; font-family: 'Roboto', sans-serif; font-size: 25px; color: #47066a; margin-top: 8px; letter-spacing: 1px;">
-            Wait! Do you really need SEO? <p style="text-align: left; font-size: 20px; margin-left: 175px; margin-top: 5px;">Let’s check -></p>
+            Wait! Do you really need SEO? 
+            <p style="text-align: center; font-size: 20px; margin-top: 5px;">Let’s check -></p>
         </h3>
 
-        <div class="container">
-            <div class="input-container">
-                <label style="font-family: 'Verdana', sans-serif; font-size: 14px;" for="siteTraffic">Your Website:</label><br>
-                <input type="text" id="siteAddress" placeholder="Enter your site traffic" style="width: 90%; padding: 8px; margin: 10px 0; border-radius: 7px; border-color: #6f2597;" required><br>
+        <!-- Cross button to show the input section again -->
+        <div id="crossButton" class="cross-button" onclick="showInputSection()">X</div>
 
-                <label style="font-family: 'Verdana', sans-serif; font-size: 14px;" for="siteTraffic">Web Traffic (Visitors) Per Month:</label><br>
-                <input type="number" id="siteTraffic" placeholder="Enter your site traffic" style="width: 90%; padding: 8px; margin: 10px 0; border-radius: 7px;border-color: #6f2597;" required><br>
-
-                <label style="font-family: 'Verdana', sans-serif; font-size: 14px;" for="currentCR">Leads or Conversions Per Month:</label><br>
-                <input type="number" id="currentLead" placeholder="Enter your current CR" style="width: 90%; padding: 8px; margin: 10px 0; border-radius: 7px; border-color: #6f2597;" required><br>
-            </div>
-
-            <div class="chart-container">
-                <canvas id="conversionChart"></canvas>
+        <!-- Separate sections for charts -->
+        <div id="chartSection" class="chart-section">
+            <div class="chart-row">
+                <!-- Bar chart -->
+                <div>
+                    <canvas id="barChart"></canvas>
+                </div>
+                <div class="divider"></div>
+                <!-- Doughnut chart -->
+                <div>
+                    <canvas id="doughnutChart"></canvas>
+                </div>
             </div>
         </div>
 
-        <div style="text-align: center;">
-            <button onclick="calculateCR()" style="width: 65%; padding: 10px; background: linear-gradient(90deg, #6f2597, #a401a4); color: white; border: none; border-radius: 11px;">
-                Calculate Lead Performance/Industry Std.
-            </button>
-        </div>
-        
-        
+        <form id="linkForm">
+            <div class="container">
+                <div class="input-container" id="inputSection">
+                    <label style="font-family: 'Verdana', sans-serif; font-size: 14px;" for="website_link">Your Website:</label>
+                    <input type="url" id="website_link" name="website_link" placeholder="Enter your website link" style="width: 90%; padding: 8px; margin: 10px 0; border-radius: 7px; border-color: #6f2597;" required><br>
+
+                    <label style="font-family: 'Verdana', sans-serif; font-size: 14px;" for="siteTraffic">Web Traffic (Visitors) Per Month:</label>
+                    <input type="number" id="siteTraffic" placeholder="Enter your site traffic" style="width: 90%; padding: 8px; margin: 10px 0; border-radius: 7px;border-color: #6f2597;" required><br>
+
+                    <label style="font-family: 'Verdana', sans-serif; font-size: 14px;" for="currentLead">Leads or Conversions Per Month:</label>
+                    <input type="number" id="currentLead" placeholder="Enter your current leads" style="width: 90%; padding: 8px; margin: 10px 0; border-radius: 7px; border-color: #6f2597;" required><br>
+
+                    <div style="text-align: center;">
+                        <button type="submit" style="width: 65%; padding: 10px; background: linear-gradient(90deg, #6f2597, #a401a4); color: white; border: none; border-radius: 11px;">
+                            Calculate Improvements
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
         <p id="result" style="padding: 10px; background-color: #ffe1ff; border-radius: 5px; text-align: center; font-family: 'Roboto', sans-serif;">Enter values to see the Result</p>
 
-        <!-- GIF Overlay within CR calculator section -->
         <div id="gif-overlay">
             <img src="gif.gif" alt="Celebration GIF">
+        </div>
+
+        <div id="loader-overlay" class="loader-overlay">
+            <div class="loader"></div>
         </div>
     </div>
 
     <script>
-    // Initialize the chart object and a flag to track the GIF display
-let conversionChart;
-let gifShown = false; // Track if the GIF has been shown already
+        let barChart, doughnutChart;
 
-function calculateCR() {
-    var siteTraffic = document.getElementById('siteTraffic').value;
-    var currentLead = document.getElementById('currentLead').value;
-    let msg = "", cta = "Talk to an expert ->";  // Initialize msg as a string
-    var leadboost = 1; // Default value for leadboost
-    var est = currentLead / siteTraffic;
-    
-    if(est >= 0.05) {
-        msg = "Your website is killing the market. It seems like you've got the magic elixir. We want to know your secret.";
-        cta ="Care to share with our experts?"
-    }
-    else if(est < 0.05 && est >= 0.02) {
-        leadboost = 1.5; 
-        msg = "Your website is optimally working currently. However, if you need to capture more market share, you should invest in brand awareness through social media channels and blogs.";
-    }
-    else if(est < 0.02 && est >= 0.01) {
-        leadboost = 3;
-        msg = "Your website is underperforming currently. SEO optimization could boost your traffic by up to 187% and increase your leads by 1.5x to 3x, depending on industry trends and competitive factors.";
-    }
-    else if(est < 0.01) {
-        leadboost = 10;
-        msg = "Your website needs a SERIOUS content refresh! An SEO revamp, site optimization, and new website content through funneling could boost your web traffic by at least 200% and potentially increase your leads by 5x to 10x.";
-        cta = "Talk to an expert now!"
-    }
+        document.getElementById('linkForm').addEventListener('submit', async function (event) {
+            event.preventDefault(); 
 
-    if (siteTraffic && currentLead) {
-        var currentConversions = Number(currentLead); // Ensure it's a number
-        var potentialIncrease = currentConversions * leadboost;
+            toggleLoader(true);
+            setTimeout(function () {
+                toggleLoader(false);
+            }, 1000);
 
-        document.getElementById('result').innerHTML = msg + "<br><a href='https://content-whale.com/' target='_blank'><strong>" + cta + "</strong></a>";
-        /*
-        // Show the GIF overlay if it hasn't been shown before
-        if (!gifShown) {
-            document.getElementById('gif-overlay').style.display = 'flex'; // Show the GIF
+            const websiteLink = document.getElementById('website_link').value;
+            const siteTraffic = document.getElementById('siteTraffic').value;
+            const currentLead = document.getElementById('currentLead').value;
 
-            // Hide the GIF overlay after 3 seconds
-            setTimeout(function() {
-                document.getElementById('gif-overlay').style.display = 'none';
-            }, 2500);
+            try {
+                await fetch('https://oqwydkxpxvcoljunaejk.supabase.co/rest/v1/links', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xd3lka3hweHZjb2xqdW5hZWprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk2NjU3NzYsImV4cCI6MjA0NTI0MTc3Nn0.HMO5VGmqsqyhQUUMeu0WDEWnOswcwbdtqoTXj9qHXR0',
+                        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xd3lka3hweHZjb2xqdW5hZWprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk2NjU3NzYsImV4cCI6MjA0NTI0MTc3Nn0.HMO5VGmqsqyhQUUMeu0WDEWnOswcwbdtqoTXj9qHXR0'
+                    },
+                    body: JSON.stringify({
+                        website_link: websiteLink
+                    })
+                });
+            } catch (error) {
+                console.error('Error:', error);
+                loaderOverlay.style.display = 'none';
+                alert('Failed to store the info.');
+            }
 
-            gifShown = true; // Set the flag to true, so the GIF won't show again
-        } */
+            let msg = "", cta = "Talk to an expert";  
+            let comp = 200;
+            let leadboost = 1;
+            const est = currentLead / siteTraffic;
 
-        // Update the chart data
-        setTimeout(function() {
-            updateChart(currentConversions, potentialIncrease);
-        }, 500);
-    } else {
-        document.getElementById('result').innerHTML = "Please enter valid values for both fields.";
-    }
-}
+            // Competitor logic based on traffic range
+            
+            if(siteTraffic >= 70000) {
+               comp = Math.round(siteTraffic * 0.040); // 4.0% conversion rate for large traffic
+            } else if (siteTraffic < 70000 && siteTraffic >= 50000) {
+               comp = Math.round(siteTraffic * 0.035); // 3.5% conversion rate for large traffic
+            } else if (siteTraffic < 50000 && siteTraffic >= 30000) {
+               comp = Math.round(siteTraffic * 0.030); // 3.0% conversion rate for medium traffic
+            } else {
+               comp = Math.round(siteTraffic * 0.02); // 2% conversion rate for small traffic
+            }
 
-function updateChart(currentConversions, potentialIncrease) {
-    // If the chart already exists, destroy it
-    if (conversionChart) {
-        conversionChart.destroy();
-    }
 
-    // Create a new donut chart
-    const ctx = document.getElementById('conversionChart').getContext('2d');
-    conversionChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Current Leads', 'Boosted Leads'],
-            datasets: [{
-                label: 'Conversions',
-                data: [currentConversions, potentialIncrease - currentConversions],
-                backgroundColor: ['#a0a2a9', '#ffa500'],
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false,  // Disable the legend
+            if (est >= 0.05) {
+                msg = "Your website is killing the market. It seems like you've got the magic elixir. We want to know your secret.";
+                cta = "Care to share with our experts?";
+            } else if (est < 0.05 && est >= 0.02) {
+                leadboost = 1.5;
+                msg = "Your website is optimally working currently. However, if you need to capture more market share, you should invest in brand awareness through social media channels and blogs.";
+                cta = "See what we have for you"; 
+            } else if (est < 0.02 && est >= 0.01) {
+                leadboost = 3;
+                msg = "Your website is underperforming currently. SEO Optimization could boost your traffic by up to 187% and increase your leads by 1.5x to 3x(Variable), depending on industry trends and competitive factors.";
+                cta = "Talk to an expert";
+            } else if (est < 0.01) {
+                leadboost = 7;
+                msg = "Your website needs a SERIOUS content refresh! An SEO revamp, site optimization, and new website content through funneling could boost your web traffic by at least 200% and potentially increase your leads by 5x to 10x.";
+                cta = "Talk to an expert now!";
+            }
+
+            const currentConversions = Number(currentLead);
+            const potentialIncrease = currentConversions * leadboost;
+            document.getElementById('result').innerHTML = `
+            ${msg} 
+            <div style="text-align: center; margin-top: 15px;">
+                <a href="https://content-whale.com/" target="_blank">
+                    <button style="width: 45%; padding: 10px; background: linear-gradient(90deg, #a346d2, #e69500); color: white; border: none; border-radius: 11px;">
+                    ${cta}
+                    </button>
+                </a>
+            </div>`;
+
+            // Hide the input section
+            document.getElementById('inputSection').classList.add('hidden');
+            // Show the chart section
+            document.getElementById('chartSection').style.display = 'block';
+            // Show the cross button
+            document.getElementById('crossButton').style.display = 'block';
+
+            setTimeout(function () {
+                updateCharts(currentConversions, potentialIncrease, comp);
+            }, 500);
+        });
+
+        function toggleLoader(show) {
+            const loaderOverlay = document.getElementById('loader-overlay');
+            if (show) {
+                loaderOverlay.style.display = 'flex'; 
+            } else {
+                loaderOverlay.style.display = 'none';
+            }
+        }
+
+        function updateCharts(currentConversions, potentialIncrease, comp) {
+            // Update Bar Chart
+            const barCtx = document.getElementById('barChart').getContext('2d');
+            if (barChart) {
+                barChart.destroy();
+            }
+            barChart = new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['You', 'Competitors'],
+                    datasets: [
+                        {
+                            label: '',  // Remove the label to avoid showing the legend
+                            data: [currentConversions, comp],
+                            backgroundColor: ['#a0a2a9', '#6f2597'],
+                        }
+                    ]
                 },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            const label = context.label || '';
-                            const value = context.raw;
-                            return label + ': ' + Math.round(value);
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false // Disable the legend
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: false, // Removed the 'Leads Per Month' label
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Leads',
+                            }
                         }
                     }
                 }
-            },
-            cutout: '57%',
+            });
+
+            // Update Doughnut Chart
+            const doughnutCtx = document.getElementById('doughnutChart').getContext('2d');
+            if (doughnutChart) {
+                doughnutChart.destroy();
+            }
+            doughnutChart = new Chart(doughnutCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Current Leads', 'SEO Boosted Leads'],
+                    datasets: [{
+                        label: 'Leads',
+                        data: [currentConversions, potentialIncrease - currentConversions],
+                        backgroundColor: ['#a0a2a9', '#ffa500'],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '57%',
+                    plugins: {
+                        legend: {
+                            display: true, // Keep the legend for the doughnut chart
+                            position: 'top'
+                        }
+                    }
+                }
+            });
         }
-    });
-}
+
+        function showInputSection() {
+            document.getElementById('inputSection').classList.remove('hidden');
+            document.getElementById('chartSection').style.display = 'none';
+            document.getElementById('crossButton').style.display = 'none';
+        }
     </script>
 </body>
 </html>
