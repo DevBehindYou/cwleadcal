@@ -122,6 +122,25 @@
             border-radius: 7px;
             display: none; /* Initially hidden */
         }
+        /* Popup message styling */
+        .popup {
+            position: absolute;
+            top: 100px; /* Adjust the position as needed */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 300px;
+            padding: 10px;
+            background-color: #ffffff;
+            color: #2c2c2c;
+            border: 1px solid #9d00ff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 14px;
+            text-align: center;
+            display: none; /* Hidden by default */
+            z-index: 10;
+        }
     </style>
 </head>
 <body>
@@ -131,6 +150,11 @@
             Wait! Do you really need SEO? 
             <p style="text-align: center; font-size: 20px; margin-top: 5px;">Let’s check -></p>
         </h3>
+
+        <!-- Error popup message -->
+        <div id="urlPopup" class="popup">
+            Please enter a valid URL <br> starts with "www." or "https://".<br>Examples: www.example.com, https://example.com
+        </div>
 
         <!-- Cross button to show the input section again -->
         <div id="crossButton" class="cross-button" onclick="showInputSection()">X</div>
@@ -154,7 +178,9 @@
             <div class="container">
                 <div class="input-container" id="inputSection">
                     <label style="font-family: 'Verdana', sans-serif; font-size: 14px;" for="website_link">Your Website:</label>
-                    <input type="url" id="website_link" name="website_link" placeholder="Enter your website link" style="width: 90%; padding: 8px; margin: 10px 0; border-radius: 7px; border-color: #6f2597;" required><br>
+                    <input type="text" id="website_link" name="website_link" placeholder="e.g., www.example.com or https://example.com" style="width: 90%; padding: 8px; margin: 10px 0; border-radius: 7px; border-color: #6f2597;" required>
+                    <p id="urlError" style="color: red; display: none;">Please enter a valid URL starting with "www." or "https://". Examples: www.example.com, https://example.com</p>
+                    <br>
 
                     <label style="font-family: 'Verdana', sans-serif; font-size: 14px;" for="siteTraffic">Web Traffic (Visitors) Per Month:</label>
                     <input type="number" id="siteTraffic" placeholder="Enter your site traffic" style="width: 90%; padding: 8px; margin: 10px 0; border-radius: 7px;border-color: #6f2597;" required><br>
@@ -188,14 +214,25 @@
         document.getElementById('linkForm').addEventListener('submit', async function (event) {
             event.preventDefault(); 
 
+            const websiteLinkInput = document.getElementById('website_link');
+              const websiteLink = websiteLinkInput.value.trim();
+              const urlPopup = document.getElementById('urlPopup');
+            const siteTraffic = document.getElementById('siteTraffic').value;
+            const currentLead = document.getElementById('currentLead').value;
+
+            // Validate if the URL starts with "www." or "https://"
+            if (!websiteLink.startsWith("www.") && !websiteLink.startsWith("https://") && !websiteLink.startsWith("http://")) {
+                // Show popup if URL is invalid
+                urlPopup.style.display = "block";
+                setTimeout(() => { urlPopup.style.display = "none"; }, 5000); // Hide popup after 5 seconds
+                return; // Stop form submission
+            }
+
             toggleLoader(true);
             setTimeout(function () {
                 toggleLoader(false);
             }, 1000);
 
-            const websiteLink = document.getElementById('website_link').value;
-            const siteTraffic = document.getElementById('siteTraffic').value;
-            const currentLead = document.getElementById('currentLead').value;
 
             try {
                 await fetch('https://oqwydkxpxvcoljunaejk.supabase.co/rest/v1/links', {
@@ -206,7 +243,9 @@
                         'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xd3lka3hweHZjb2xqdW5hZWprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk2NjU3NzYsImV4cCI6MjA0NTI0MTc3Nn0.HMO5VGmqsqyhQUUMeu0WDEWnOswcwbdtqoTXj9qHXR0'
                     },
                     body: JSON.stringify({
-                        website_link: websiteLink
+                        website_link: websiteLink,
+                        site_traffic: siteTraffic,
+                        leads: currentLead,
                     })
                 });
             } catch (error) {
@@ -255,7 +294,7 @@
             document.getElementById('result').innerHTML = `
             ${msg} 
             <div style="text-align: center; margin-top: 15px;">
-                <a href="https://content-whale.com/contact-customer/" target="_blank">
+                <a href="https://content-whale.com/" target="_blank">
                     <button style="width: 45%; padding: 10px; background: linear-gradient(90deg, #a346d2, #e69500); color: white; border: none; border-radius: 11px;">
                     ${cta}
                     </button>
