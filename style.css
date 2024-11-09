@@ -1,0 +1,353 @@
+/* Styles for the SEO Improvement Calculator */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(to bottom right, #fdf9ff, #fff9f5);
+}
+.container {
+    max-width: 700px;
+    padding: 30px;
+    background-color: transparent;
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+}
+.header {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 30px;
+    color: #4e4e4e;
+    margin-bottom: 10px;
+    padding-top: 10px;
+}
+.description {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500; 
+    font-size: 18px;
+    color: #737373;
+    margin-bottom: 20px;
+}
+.description-result {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500; 
+    font-size: 16px;
+    color: #737373; 
+    margin-bottom: 10px;
+}
+#website, .input-row input {
+width: 93%;
+padding: 20px;
+font-size: 16px;
+border: none; 
+border-radius: 12px; 
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+outline: none; 
+background-color: #fff; 
+transition: box-shadow 0.3s ease; 
+margin-bottom: 20px;
+}
+#website::placeholder, .input-row input::placeholder {
+color: #888888;
+font-size: 16px;
+font-family: 'Inter', sans-serif;
+}
+#website:hover, .input-row input:hover,
+#website:focus, .input-row input:focus {
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); 
+}
+.input-row {
+display: flex;
+gap: 10px;
+}
+.input-row input {
+flex: 1;
+ }
+.calculate-button {
+    font-size: 18px;
+    background: linear-gradient(to right, #6a0dad, #7e3cb5);
+    color: #fff;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+}
+.calculate-button:hover {
+    background: linear-gradient(to right, #7e3cb5, #6a0dad);
+}
+.note {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #000;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.note img {
+    width: 40px;
+    height: auto;
+    margin-right: 6px;
+}
+.report-container {
+    display: none;
+    text-align: center;
+}
+.report-header {
+    font-family: 'Source Serif 4';
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+.report-content {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.report-box {
+    width: 45%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 14px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.report-box-2 {
+    width: 55%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 14px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.gauge-container {
+    position: relative;
+    width: 100%;
+    height: 150px;
+    margin: 0 auto;
+}
+.gauge-image {
+    width: 90%;
+}
+.chart-image {
+    width:100%;
+}
+.overlay-number {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Inter', sans-serif;
+    font-size: 44px;
+    color: #000;
+    font-weight: bold;
+    z-index: 2;
+}
+.overlay-text {
+    position: absolute;
+    top: 105%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    color: #000;
+    text-align: center;
+    width: 100%;
+    z-index: 2;
+}
+.loader-overlay {
+    display: none; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(240, 196, 255, 0.3);
+    z-index: 10;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+}
+.loader {
+    border: 10px solid #f3f3f3; 
+    border-top: 10px solid #6f2597; 
+    border-radius: 50%;
+    width: 50px; 
+    height: 50px; 
+    animation: spin 1.5s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.hidden {
+    display: none;
+}
+.seo-score-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;                    
+    font-size: 11px;    
+    text-align: left;                 
+    color: #6c6b6b;                      
+    margin-top: 0;                       
+    margin-bottom: 10px;                
+}
+.seo-score-title-b {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;                    
+    font-size: 26px;    
+    text-align: left;                 
+    color: #000;                      
+    margin-top: 10px;                       
+    margin-bottom: 10px;                
+}
+.report-box p {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500; 
+    font-size: 11px;
+    color: #626262;
+    margin-top: 20px;
+}
+.button-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+.see-report, .go-back {
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    border: 2px solid #6a0dad;
+}
+.see-report {
+    width: 240px;
+    height: 42px;
+    background: linear-gradient(to left, #7e3cb5, #6a0dad);
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;                    
+    font-size: 15px; 
+    color: white;
+    text-align: center;
+}
+.see-report:hover{
+    background: linear-gradient(to left, #6a0dad, #7e3cb5);
+}
+.go-back {
+    background-color: transparent;
+    width: 200px;
+    height: 42px;
+    background: transparent;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;                   
+    font-size: 14px; 
+    text-align: center;
+    color: #7a2cb3;
+}
+.text-container {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    margin-top: -10px;
+    font-weight: 500;
+    color: #333;
+}
+.legend {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+}
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 4px; 
+}
+.description-cta {
+    align-content: center;
+    width: 100%;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 14px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.popup-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.popup-content {
+    background-color: white;
+    padding: 10px;
+    border-radius: 9px;
+    text-align: center;
+    max-width: 350px;
+}
+.popup-content p {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #636363;
+    margin-bottom: 11px;
+}
+.popup-content button {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: #6f2597;
+    color: #fff;
+    padding: 6px 15px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    width: 80px;
+    height: 35px;
+}
+
+.popup-content button:hover {
+    background-color: #5b1f7b;
+}
+/* Hide the report boxes initially */
+.report-box-2 {
+    opacity: 0;
+    transform: translateX(20px); /* Start from slightly below */
+    transition: opacity 0.7s ease, transform 0.7s ease; /* Smooth transition */
+}
+.report-box {
+    opacity: 0;
+    transform: translateX(-20px); /* Start from slightly below */
+    transition: opacity 0.7s ease, transform 0.7s ease; /* Smooth transition */
+}
+.description-cta {
+    opacity: 0;
+    transform: translateY(20px); /* Start from slightly below */
+    transition: opacity 0.7s ease, transform 0.7s ease; /* Smooth transition */
+}
+
+/* Animation class for the fade-in effect */
+.fade-in {
+opacity: 1;
+transform: translateY(0); /* Move to original position */
+}
+/* Additional styles ... (Add all the CSS content here) */
