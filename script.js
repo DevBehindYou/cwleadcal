@@ -1,11 +1,16 @@
 // JavaScript for SEO Improvement Calculator
 function validateAndCalculate() {
     const website = document.getElementById("website").value;
+    const websiteError = document.getElementById("websiteError");
+    const urlPattern = /^(https:\/\/|www\.)/;
     const traffic = parseInt(document.getElementById("traffic").value);
     const leads = parseInt(document.getElementById("leads").value);
 
     if (!website || isNaN(traffic) || isNaN(leads) || leads <= 0 || leads > traffic){
         showPopup("Please fill in all fields, ensure leads and traffic are valid numbers, and leads do not exceed traffic.");
+        return; // Stop further execution if validation fails
+    } else  if (!urlPattern.test(website)) {
+        showPopup('Please enter a valid URL starting with "www." or "https://. Examples: www.example.com, https://example.com.');
         return; // Stop further execution if validation fails
     } else {
         calculateImprovements(website, traffic, leads); // Proceed with calculation if URL is valid
