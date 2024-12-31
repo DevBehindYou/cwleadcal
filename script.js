@@ -10,7 +10,7 @@ function validateAndCalculate() {
         showPopup("Please fill in all fields, ensure leads and traffic are valid numbers, and leads do not exceed traffic.");
         return; // Stop further execution if validation fails
     } else  if (!urlPattern.test(website)) {
-        showPopup('Please enter a valid URL starting with "www." or "https://. Examples: www.example.com, https://example.com.');
+        showPopup('Please enter a valid URL starting with "www." or "https:// Examples: www.example.com, https://example.com.');
         return; // Stop further execution if validation fails
     } else {
         calculateImprovements(website, traffic, leads); // Proceed with calculation if URL is valid
