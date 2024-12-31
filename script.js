@@ -165,5 +165,8 @@ overlayText.textContent = description;
         document.querySelector(".form-container").style.display = "block";
         document.getElementById("report-container").style.display = "none";
     }
+    function openLink() {
+        window.open("https://content-whale.com/contact-customer", "_blank");
+    }
 
 // Additional JavaScript functions ...
