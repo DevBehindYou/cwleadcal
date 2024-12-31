@@ -83,8 +83,8 @@ document.getElementById("report-container").style.display = "block";
 setTimeout(() => {
     document.querySelector(".report-box").classList.add("fade-in");
     document.querySelector(".report-box-2").classList.add("fade-in");
-    document.querySelector(".description-cta").classList.add("fade-in"); // Apply fade-in to description-cta
-}, 300); // Add a slight delay if desired
+    document.querySelector(".description-cta").classList.add("fade-in");
+}, 300);
 
 // Update the gauge with the calculated score
 updateGauge(score);
@@ -116,36 +116,46 @@ const chartImage = document.querySelector(".chart-image");
 
 overlayNumber.textContent = score;
 
+// Remove existing score classes
+overlayNumber.classList.remove("score-high", "score-medium", "score-low");
+
 // Update descriptive text based on score
 let description;
 if (score >= 49 && score <= 100) {
     description = "Your SEO Score is Outstanding";
     gaugeImage.src = "07.webp";
     chartImage.src = "c07.webp";
+    overlayNumber.classList.add("score-high"); // High score
 } else if (score >= 36 && score < 49) {
     description = "Your SEO Score is Excellent";
     gaugeImage.src = "06.webp";
     chartImage.src = "c06.webp";
+    overlayNumber.classList.add("score-high"); // High score
 } else if (score >= 29 && score < 36) {
     description = "Your SEO Score is Very Good";
     gaugeImage.src = "05.webp";
     chartImage.src = "c05.webp";
+    overlayNumber.classList.add("score-medium"); // Medium score
 } else if (score >= 23 && score < 29) {
     description = "Your SEO Score is Good";
     gaugeImage.src = "04.webp";
     chartImage.src = "c04.webp";
+    overlayNumber.classList.add("score-medium"); // Medium score
 } else if (score >= 19 && score < 23) {
     description = "Your SEO Score is Average";
     gaugeImage.src = "03.webp";
     chartImage.src = "c03.webp";
+    overlayNumber.classList.add("score-medium"); // Medium score
 } else if (score >= 13 && score < 19) {
     description = "Your SEO Score is below Average";
     gaugeImage.src = "02.webp";
     chartImage.src = "c02.webp";
+    overlayNumber.classList.add("score-low"); // Low score
 } else {
     description = "Your SEO Score is Poor";
     gaugeImage.src = "01.webp";
     chartImage.src = "c01.webp";
+    overlayNumber.classList.add("score-low"); // Low score
 }
 
 overlayText.textContent = description;
