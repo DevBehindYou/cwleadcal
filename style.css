@@ -13,7 +13,7 @@ body {
     max-width: 800px;  /* Expanded for constant screen widths */
     max-height: 1200px; /* Expanded for constant screen height */
     padding: 30px;
-    margin: 20px;
+    margin-top: 30px;
     background-color: transparent;
     border-radius: 12px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
