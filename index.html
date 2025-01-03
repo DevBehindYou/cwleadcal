@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Improvement Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <img src="CW.svg" alt="content-whale" width="220px" height="auto">
+        <div class="form-container">
+            <div class="header">Wondering If You Really Need SEO?</div>
+            <div class="description">
+                Unlock the true potential of your business—find out if SEO is the missing piece you need!
+            </div>
+            <input type="text" id="website" placeholder="Your website" required>
+            <div class="input-row">
+                <input type="number" id="traffic" placeholder="Web Traffic per month">
+                <input type="number" id="leads" placeholder="Leads or conversions per month">
+            </div>
+            <button class="calculate-button" onclick="validateAndCalculate()">Calculate Improvements</button>
+            <div class="note">
+                <img src="star.webp" alt="Sparkles">
+                This helps us give you best suitable results
+            </div>
+        </div>
+        <div class="report-container" id="report-container">
+            <div class="header">Your SEO Report</div>
+            <div class="report-content">
+                <div class="report-box">
+                    <h3 class="seo-score-title">Your SEO Score</h3>
+                    <div class="gauge-container">
+                        <div class="score-guage">
+                            <canvas id="gauge-canvas" width="320" height="200"></canvas>
+                            <div class="dot" id="indicator-dot"></div>
+                        </div>
+                        <div class="overlay-number" id="overlayNumber">0</div>
+                        <div class="overlay-text" id="overlayText">Your SEO Score is average</div>
+                    </div>
+                </div>
+                <div class="report-box-2">
+                    <h3 class="seo-score-title">You VS your competitors</h3>
+                    <h3 class="seo-score-title-b">SEO Listing</h3>
+                    <img src="" alt="SEO Listing Chart" class="chart-image">
+                    <div class="text-container">
+                        <p>Costing per lead: $10</p>
+                        <p class="legend">
+                            <span class="legend-item">
+                                <img src="Competitor.svg" alt="Competitor" width="12px" height="auto">
+                                <span>Your Competitor</span>
+                            </span>
+                            <span class="legend-item">
+                                <img src="you.svg" alt="You" width="12px" height="auto">
+                                <span>You</span>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="description-cta">
+                <div class="description-result">
+                    Your website is optimally working currently. However, if you need to capture more market share, you should invest in brand awareness through social media channels and blogs.
+                </div>
+                <div class="button-container">
+                    <button class="see-report" onclick="openLink()">See what we have for you</button>
+                    <button class="go-back" onclick="goBack()">Go back</button>
+                </div>
+            </div>
+        </div>
+        <div class="loader-overlay" id="loadingOverlay">
+            <img src="gogogo.webp" alt="Loading..." class="loading-gif"> 
+        </div>
+        <div class="popup-overlay" id="popupOverlay">
+            <div class="popup-content">
+                <img src="error.webp" alt="error" width="60" height="60">
+                <p id="popupMessage">Please fill in all fields, ensure leads and traffic are valid numbers, and leads do not exceed traffic.</p>
+                <button onclick="closePopup(event)">OK</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
