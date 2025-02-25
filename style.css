@@ -6,7 +6,7 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background: linear-gradient(to bottom right, #fdf9ff, #fff9f5);
+    background: transparent; /* Actual Background Color Before the Main Contaner */
 }
 
 .score-guage {
@@ -33,7 +33,7 @@ body {
     max-height: 1200px; /* Expanded for constant screen height */
     padding: 60px 30px 30px 30px;
     margin: 30px;
-    background-color: transparent;
+    background: linear-gradient(to bottom right, #fdf9ff, #fff9f5);
     border-radius: 12px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
